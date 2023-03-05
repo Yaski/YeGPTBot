@@ -14,7 +14,8 @@ module.exports = async function App(context) {
 
     // Проверяет это групп чат или нет
     var text = context.event.text;
-    if (context.event.message.chat.type == 'group') {
+    var chat = context.event.message.chat;
+    if (chat != null && chat.type == 'group') {
       if (text.startsWith('@YeGptBot ')) {
         text = text.substring(10);
       } else {
