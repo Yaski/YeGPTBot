@@ -82,7 +82,14 @@ module.exports = async function App(context) {
     }
 
     var isBig = context.state.isBig;
-    if (isTrusted && text.toLowerCase().startsWith('/big')) {
+    if (text.toLowerCase().startsWith('/big')) {
+      if (!isTrusted) {
+        await context.sendText(
+          'Недостаточно прав для изменения настройки.',
+          opts
+        );
+        return;
+      }
       isBig = !isBig;
       context.setState({
         isBig,
